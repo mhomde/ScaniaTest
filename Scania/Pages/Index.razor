@@ -1,0 +1,145 @@
+﻿@page "/"
+@using Scania.API
+@using Scania.Data
+@using Scania.Objects
+@using Syncfusion.Blazor
+@inject IScaniaFacade ScaniaFacade
+@inject NavigationManager UriHelper
+@inject NavigationManager NavManager
+
+<h2>Trucks</h2>
+
+<div style="width: 1200px">
+
+
+    <SfGrid DataSource="@TruckData" AllowSorting="true" AllowFiltering="true" Toolbar="@ToolBar">
+        <GridEditSettings AllowAdding="true" AllowEditing="@_allowEditing" AllowDeleting="true" Mode="EditMode.Batch"></GridEditSettings>
+
+        <GridColumns>
+            <GridColumn Field="@nameof(Truck.Id)" HeaderText="PrimaryId" Visible="true" Width="110" IsPrimaryKey="true" Type="ColumnType.String"></GridColumn>
+            <GridColumn Field="@nameof(Truck.Engine)" HeaderText="Engine" Width="200" FilterSettings="@(new FilterSettings {Operator = Operator.Contains})" Type="ColumnType.String"></GridColumn>
+            <GridColumn Field="@nameof(Truck.FuelTank)" HeaderText="Fuel Tank" Width="110" Format="# ltr" FilterSettings="@(new FilterSettings {Operator = Operator.Contains})" Type="ColumnType.String"></GridColumn>
+            <GridColumn Field="@nameof(Truck.Weight)" HeaderText="Weight" Format="# kg" Width="110" Type="ColumnType.Number"></GridColumn>
+            <GridColumn Field="@nameof(Truck.Transmission)" HeaderText="Transmisssion" Width="110" Type="ColumnType.String"></GridColumn>
+            <GridColumn Field="@nameof(Truck.Wheelbase)" HeaderText="Wheelbase" Format="# mm" Width="110" Type="ColumnType.Number"></GridColumn>
+            <GridColumn Field="@nameof(Truck.Payload)" HeaderText="Payload" Type="ColumnType.Number" Format="# kg" Width="110"></GridColumn>
+            <GridColumn Field="@nameof(Truck.NrTires)" HeaderText="Nr Tires" Type="ColumnType.Number" Format="d" Width="110"></GridColumn>
+            <GridEvents TValue="Truck" OnBatchSave="DoSave" OnBatchAdd="DoBeforeAdd"> </GridEvents>
+
+        </GridColumns>
+
+
+    </SfGrid>
+
+</div>
+
+@code {
+
+
+    private bool _allowEditing = true;
+
+
+    private List<Truck> TruckData = new List<Truck>();
+    private List<string> ToolBar = new List<string>();
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; }
+
+   
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthState;
+
+        if (authState.User.Identity.IsAuthenticated) //This works and correctly verifies that I am authenticated
+        {
+            var user = authState.User;
+
+            _allowEditing = user.IsInRole(Roles.Admin.ToString());
+            ToolBar = _allowEditing ? GridToolbars.AdminToolbar : GridToolbars.BasicToolbar;
+        }
+    }
+
+
+    protected override void OnInitialized()
+    {
+         TruckData = ScaniaFacade.GetTrucks();
+    }
+
+
+
+    [Authorize(Roles = "Admin")]
+    private void DoSave(BeforeBatchSaveArgs<Truck> obj)
+    {
+        ScaniaFacade.BatchUpdate(obj.BatchChanges.ChangedRecords, obj.BatchChanges.DeletedRecords, obj.BatchChanges.AddedRecords);
+    }
+
+    private void DoBeforeAdd(BeforeBatchAddArgs<Truck> obj)
+    {
+        obj.DefaultData = new Truck
+        {
+            Id = Guid.NewGuid().ToString(),
+            Weight = 0,
+            Wheelbase = 0,
+            FuelTank = 0
+        };
+    }
+
+
+}
+
+
+<style type="text/css">
+    .personal-wrap {
+        float: left;
+        padding: 45px;
+        padding-top: 70px
+    }
+
+    .top-padding { padding-top: 42px; }
+
+    .first-name {
+        font-size: x-large;
+        font-weight: bold;
+    }
+
+    .photo {
+        border-radius: 50px;
+        box-shadow: inset 0 0 1px #e0e0e0, inset 0 0 14px rgba(0, 0, 0, 0.2);
+        height: 100px;
+        width: 100px;
+    }
+
+    .title {
+        font-size: large;
+        font-weight: 500;
+    }
+
+    .title-font { font-weight: 400; }
+
+    .left-div-wrap {
+        float: left;
+        height: 260px;
+        width: 450px;
+    }
+
+    .right-div-wrap {
+        float: left;
+        padding: 40px;
+        width: 265px;
+    }
+
+    .inner-padding { padding: 25px; }
+
+    .schedule-div {
+        padding: 25px;
+        width: 450px;
+    }
+
+    .content { font-size: large; }
+
+    .e-tab .e-content { overflow-y: hidden; }
+
+    .e-tab .e-tab-header { border: 0; }
+
+    .e-tab { padding: 10px; }
+</style>
