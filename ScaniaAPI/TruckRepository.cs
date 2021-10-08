@@ -8,9 +8,25 @@ namespace Scania.API
     {
         private readonly Dictionary<string, Truck> _trucks = new Dictionary<string, Truck>();
 
-        public void AddRange(IEnumerable<Truck> trucks)
+        public Truck this[string id]
         {
-            foreach (var truck in trucks) Add(truck);
+            get
+            {
+                Truck result = null;
+                if (!string.IsNullOrEmpty(id)) _trucks.TryGetValue(id, out result);
+
+                return result;
+            }
+        }
+
+
+        public bool Contains(string id)
+        {
+            var result = false;
+
+            if (!string.IsNullOrEmpty(id)) result = _trucks.ContainsKey(id);
+
+            return result;
         }
 
         public void Add(Truck truck)

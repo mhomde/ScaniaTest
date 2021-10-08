@@ -17,6 +17,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Scania.API;
+using Scania.Objects;
+using Scania.Services;
 using Syncfusion.Blazor;
 using Syncfusion.Licensing;
 
@@ -52,7 +54,7 @@ namespace Scania
                     .Build();
             });
 
-            services.AddSingleton<IScaniaFacade, ScaniaFacade>();
+            services.AddSingleton<IScaniaFacade, ScaniaFacadeAuthorized>();
             services.AddServerSideBlazor();
             services.AddSyncfusionBlazor();
           }

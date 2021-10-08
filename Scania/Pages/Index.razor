@@ -16,7 +16,7 @@
         <GridEditSettings AllowAdding="true" AllowEditing="@_allowEditing" AllowDeleting="true" Mode="EditMode.Batch"></GridEditSettings>
 
         <GridColumns>
-            <GridColumn Field="@nameof(Truck.Id)" HeaderText="PrimaryId" Visible="true" Width="110" IsPrimaryKey="true" Type="ColumnType.String"></GridColumn>
+            <GridColumn Field="@nameof(Truck.Id)" HeaderText="PrimaryId" Visible="false" Width="110" IsPrimaryKey="true" Type="ColumnType.String"></GridColumn>
             <GridColumn Field="@nameof(Truck.Engine)" HeaderText="Engine" Width="200" FilterSettings="@(new FilterSettings {Operator = Operator.Contains})" Type="ColumnType.String"></GridColumn>
             <GridColumn Field="@nameof(Truck.FuelTank)" HeaderText="Fuel Tank" Width="110" Format="# ltr" FilterSettings="@(new FilterSettings {Operator = Operator.Contains})" Type="ColumnType.String"></GridColumn>
             <GridColumn Field="@nameof(Truck.Weight)" HeaderText="Weight" Format="# kg" Width="110" Type="ColumnType.Number"></GridColumn>
@@ -24,7 +24,7 @@
             <GridColumn Field="@nameof(Truck.Wheelbase)" HeaderText="Wheelbase" Format="# mm" Width="110" Type="ColumnType.Number"></GridColumn>
             <GridColumn Field="@nameof(Truck.Payload)" HeaderText="Payload" Type="ColumnType.Number" Format="# kg" Width="110"></GridColumn>
             <GridColumn Field="@nameof(Truck.NrTires)" HeaderText="Nr Tires" Type="ColumnType.Number" Format="d" Width="110"></GridColumn>
-            <GridEvents TValue="Truck" OnBatchSave="DoSave" OnBatchAdd="DoBeforeAdd"> </GridEvents>
+            <GridEvents TValue="Truck" OnBatchSave="DoSave"  OnBatchAdd="DoBeforeAdd"> </GridEvents>
 
         </GridColumns>
 
@@ -57,20 +57,23 @@
             _allowEditing = user.IsInRole(Roles.Admin.ToString());
             ToolBar = _allowEditing ? GridToolbars.AdminToolbar : GridToolbars.BasicToolbar;
         }
+
+        TruckData = await ScaniaFacade.GetTrucks();
     }
 
 
     protected override void OnInitialized()
     {
-         TruckData = ScaniaFacade.GetTrucks();
+        
     }
 
 
 
-    [Authorize(Roles = "Admin")]
-    private void DoSave(BeforeBatchSaveArgs<Truck> obj)
+   
+    private async Task DoSave(BeforeBatchSaveArgs<Truck> obj)
     {
-        ScaniaFacade.BatchUpdate(obj.BatchChanges.ChangedRecords, obj.BatchChanges.DeletedRecords, obj.BatchChanges.AddedRecords);
+        await ScaniaFacade.BatchUpdate(obj.BatchChanges.ChangedRecords, obj.BatchChanges.DeletedRecords, obj.BatchChanges.AddedRecords);
+        
     }
 
     private void DoBeforeAdd(BeforeBatchAddArgs<Truck> obj)

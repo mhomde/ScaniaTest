@@ -17,7 +17,7 @@ namespace Scania.Data
 
         protected void Add(int power, int weight, int fuelTank, int payload, int nrTires, int wheelbase, string transmission, string engine)
         {
-            var truck = new Truck()
+            var truck = new Truck
             {
                 Engine = engine,
                 Power = power,
@@ -27,10 +27,8 @@ namespace Scania.Data
                 NrTires = nrTires,
                 Wheelbase = wheelbase,
                 Transmission = transmission,
-
+                Id = Guid.NewGuid().ToString(),
             };
-
-            truck.Id = Guid.NewGuid().ToString();
 
             _trucks.Add(truck);
         }
