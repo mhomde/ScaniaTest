@@ -10,7 +10,7 @@ namespace Scania.Tests
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestSampleData()
         {
             var repository = new TruckRepositorySampleData();
             var sampleData = new SampleData();
@@ -20,7 +20,7 @@ namespace Scania.Tests
         }
 
         [TestMethod]
-        public void TestMethod2()
+        public void TestAdd()
         {
             var repository = new TruckRepositorySampleData();
             var sampleData = new SampleData();
@@ -43,9 +43,23 @@ namespace Scania.Tests
             Assert.AreEqual(newTruck, repository[newTruck.Id]);
 
         }
-
         [TestMethod]
-        public void TestMethod3()
+        public void TestUpdate()
+        {
+            var repository = new TruckRepositorySampleData();
+            var sampleData = new SampleData();
+
+            var firstItem = repository.All().First();
+
+            firstItem.Engine = "New Engine";
+
+            repository.Update(firstItem);
+
+            Assert.AreEqual(repository[firstItem.Id],firstItem);
+
+        }
+        [TestMethod]
+        public void TestDelete()
         {
             var repository = new TruckRepositorySampleData();
             var sampleData = new SampleData();

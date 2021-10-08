@@ -14,11 +14,11 @@ using Scania.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Scania.API;
 using Scania.Objects;
-using Scania.Services;
 using Syncfusion.Blazor;
 using Syncfusion.Licensing;
 
@@ -46,15 +46,15 @@ namespace Scania
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddRazorPages();
-
+       
             services.AddAuthorization(options =>
-            {
-                options.FallbackPolicy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
-            });
+                options.AddPolicy("Role",
+                    policy => policy.RequireClaim(claimType: ClaimTypes.Role, Roles.Admin.ToString())));
 
-            services.AddSingleton<IScaniaFacade, ScaniaFacadeAuthorized>();
+     
+
+
+            services.AddSingleton<IScaniaFacade, ScaniaFacade>();
             services.AddServerSideBlazor();
             services.AddSyncfusionBlazor();
           }

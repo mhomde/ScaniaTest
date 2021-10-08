@@ -24,7 +24,7 @@
             <GridColumn Field="@nameof(Truck.Wheelbase)" HeaderText="Wheelbase" Format="# mm" Width="110" Type="ColumnType.Number"></GridColumn>
             <GridColumn Field="@nameof(Truck.Payload)" HeaderText="Payload" Type="ColumnType.Number" Format="# kg" Width="110"></GridColumn>
             <GridColumn Field="@nameof(Truck.NrTires)" HeaderText="Nr Tires" Type="ColumnType.Number" Format="d" Width="110"></GridColumn>
-            <GridEvents TValue="Truck" OnBatchSave="DoSave"  OnBatchAdd="DoBeforeAdd"> </GridEvents>
+            <GridEvents TValue="Truck" OnBatchSave="DoSave" OnBatchAdd="DoBeforeAdd"> </GridEvents>
 
         </GridColumns>
 
@@ -45,7 +45,7 @@
     [CascadingParameter]
     public Task<AuthenticationState> AuthState { get; set; }
 
-   
+
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthState;
@@ -64,16 +64,12 @@
 
     protected override void OnInitialized()
     {
-        
     }
 
 
-
-   
     private async Task DoSave(BeforeBatchSaveArgs<Truck> obj)
     {
         await ScaniaFacade.BatchUpdate(obj.BatchChanges.ChangedRecords, obj.BatchChanges.DeletedRecords, obj.BatchChanges.AddedRecords);
-        
     }
 
     private void DoBeforeAdd(BeforeBatchAddArgs<Truck> obj)
