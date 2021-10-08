@@ -12,5 +12,12 @@ namespace Scania.Objects
             identityUser.NormalizedEmail = identityUser.Email.ToUpper();
             identityUser.NormalizedUserName = identityUser.UserName.ToUpper();
         }
+
+        public static void AddNormalized(this IdentityRole identityRole)
+        {
+            Debug.Assert(identityRole != null);
+
+            identityRole.NormalizedName = identityRole.Name.ToUpper();
+        }
     }
 }

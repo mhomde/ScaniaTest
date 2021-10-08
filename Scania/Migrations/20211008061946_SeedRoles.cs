@@ -11,10 +11,10 @@ namespace Scania.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -25,21 +25,21 @@ namespace Scania.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,11 +50,11 @@ namespace Scania.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,11 +71,11 @@ namespace Scania.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -92,10 +92,10 @@ namespace Scania.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,8 +112,8 @@ namespace Scania.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -136,10 +136,10 @@ namespace Scania.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
-                    Value = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -157,8 +157,8 @@ namespace Scania.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "b8928ea4-335c-4e75-bfc7-5271677868ac", "d12a5e7d-851f-42f9-a583-251fa9bde1ff", "Admin", "Admin" },
-                    { "808c5745-54bf-4d23-8cab-769753aa52eb", "4ae70a8c-0e41-4a2d-a072-e9d53af11326", "User", "Basic" }
+                    { "85f00123-16a2-472e-a99a-3b0d64bb741f", "3bd5dcaf-5e76-403b-964b-16d28cc40d5b", "Admin", "ADMIN" },
+                    { "a4761484-c023-47ef-b72f-e58e89794235", "28bee0f2-f158-4756-839e-4b62cc887e97", "Basic", "BASIC" }
                 });
 
             migrationBuilder.InsertData(
@@ -166,19 +166,19 @@ namespace Scania.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "2f89dbf1-933d-4af1-b1e1-348b4a020c8f", 0, "54a4f7e9-7ada-4c1a-a259-5b62dadff7f8", "user@test.com", true, false, null, "USER@TEST.COM", "USER@TEST.COM", "AQAAAAEAACcQAAAAEEBlospYeIqRz4lQDnQfsr9bFcdWsLXIucsuMjQAcjJYsoaSWLN3eQcWHK3BrsZb8w==", null, false, "d385e24a-4bd5-4e6e-9948-42e081884b09", false, "user@test.com" },
-                    { "4b01c9a8-8f77-4cb5-ad36-eb3dc8a01d4d", 0, "fa672c78-75a8-4f2d-9eec-1763ac3668f3", "admin@test.com", true, false, null, "ADMIN@TEST.COM", "ADMIN@TEST.COM", "AQAAAAEAACcQAAAAEIofIVQmfJ4RSWKKtgVoTANQ528wfxA/4WJKi+dhEyWkE7aw8PsdbDgHUIAZKL4o5Q==", null, false, "fc8b95ea-a8f4-484f-9f71-f0ea03b72e03", false, "admin@test.com" }
+                    { "8e1c6008-4e94-4523-a2b6-8ce61fe751a1", 0, "299ac73a-a3d0-4b0b-9ae6-296c5401a172", "user@test.com", true, false, null, "USER@TEST.COM", "USER@TEST.COM", "AQAAAAEAACcQAAAAEN5jsEBUNFJ2q4xlLYJAnIhTTot887WlXzqKMEdmzdym02rwWcXR+SaQzvcB5RBJyg==", null, false, "c1ea2e9c-8d37-43fa-a4a2-0f3871b2171b", false, "user@test.com" },
+                    { "5d9b04c8-013b-4145-a678-cd8be8bce452", 0, "302627f9-39e3-4afa-8dc8-4e3254335dd7", "admin@test.com", true, false, null, "ADMIN@TEST.COM", "ADMIN@TEST.COM", "AQAAAAEAACcQAAAAEJ7s82X02dmDBrgMVyNE0Cej2+j63yhDrqO+Gfcvp6Fe0Rc1d0FMFp83PS9UIx++8Q==", null, false, "9d1fd8f6-9f3b-4815-9d51-025794926c59", false, "admin@test.com" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
-                columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "2f89dbf1-933d-4af1-b1e1-348b4a020c8f", "808c5745-54bf-4d23-8cab-769753aa52eb" });
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "a4761484-c023-47ef-b72f-e58e89794235", "8e1c6008-4e94-4523-a2b6-8ce61fe751a1" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
-                columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "4b01c9a8-8f77-4cb5-ad36-eb3dc8a01d4d", "b8928ea4-335c-4e75-bfc7-5271677868ac" });
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "85f00123-16a2-472e-a99a-3b0d64bb741f", "5d9b04c8-013b-4145-a678-cd8be8bce452" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

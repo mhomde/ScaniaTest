@@ -16,6 +16,9 @@ namespace Scania.Seed
 
             BasicUser.PasswordHash = PasswordHasher.HashPassword(BasicUser, UserPassword);
             BasicUser.AddNormalized();
+
+            BasicRole.AddNormalized();
+            AdminRole.AddNormalized();
         }
 
 
@@ -45,8 +48,7 @@ namespace Scania.Seed
         public IdentityRole AdminRole { get; } =
             new IdentityRole
             {
-                Name = "Admin",
-                NormalizedName = Roles.Admin.ToString(),
+                Name = Roles.Admin.ToString(),
                 Id = Guid.NewGuid().ToString(),
                 ConcurrencyStamp = Guid.NewGuid().ToString()
             };
@@ -54,8 +56,7 @@ namespace Scania.Seed
         public IdentityRole BasicRole { get; } =
             new IdentityRole
             {
-                Name = "User",
-                NormalizedName = Roles.Basic.ToString(),
+                Name =  Roles.Basic.ToString(),
                 Id = Guid.NewGuid().ToString(),
                 ConcurrencyStamp = Guid.NewGuid().ToString()
             };

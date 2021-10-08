@@ -10,15 +10,15 @@ using Scania.Data;
 namespace Scania.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211007130906_SeedRoles")]
+    [Migration("20211008061946_SeedRoles")]
     partial class SeedRoles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -31,18 +31,18 @@ namespace Scania.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
+                        .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
@@ -50,17 +50,17 @@ namespace Scania.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b8928ea4-335c-4e75-bfc7-5271677868ac",
-                            ConcurrencyStamp = "d12a5e7d-851f-42f9-a583-251fa9bde1ff",
+                            Id = "85f00123-16a2-472e-a99a-3b0d64bb741f",
+                            ConcurrencyStamp = "3bd5dcaf-5e76-403b-964b-16d28cc40d5b",
                             Name = "Admin",
-                            NormalizedName = "Admin"
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "808c5745-54bf-4d23-8cab-769753aa52eb",
-                            ConcurrencyStamp = "4ae70a8c-0e41-4a2d-a072-e9d53af11326",
-                            Name = "User",
-                            NormalizedName = "Basic"
+                            Id = "a4761484-c023-47ef-b72f-e58e89794235",
+                            ConcurrencyStamp = "28bee0f2-f158-4756-839e-4b62cc887e97",
+                            Name = "Basic",
+                            NormalizedName = "BASIC"
                         });
                 });
 
@@ -101,8 +101,8 @@ namespace Scania.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -114,12 +114,12 @@ namespace Scania.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -137,17 +137,17 @@ namespace Scania.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
+                        .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
@@ -155,33 +155,33 @@ namespace Scania.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2f89dbf1-933d-4af1-b1e1-348b4a020c8f",
+                            Id = "8e1c6008-4e94-4523-a2b6-8ce61fe751a1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "54a4f7e9-7ada-4c1a-a259-5b62dadff7f8",
+                            ConcurrencyStamp = "299ac73a-a3d0-4b0b-9ae6-296c5401a172",
                             Email = "user@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@TEST.COM",
                             NormalizedUserName = "USER@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEBlospYeIqRz4lQDnQfsr9bFcdWsLXIucsuMjQAcjJYsoaSWLN3eQcWHK3BrsZb8w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN5jsEBUNFJ2q4xlLYJAnIhTTot887WlXzqKMEdmzdym02rwWcXR+SaQzvcB5RBJyg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d385e24a-4bd5-4e6e-9948-42e081884b09",
+                            SecurityStamp = "c1ea2e9c-8d37-43fa-a4a2-0f3871b2171b",
                             TwoFactorEnabled = false,
                             UserName = "user@test.com"
                         },
                         new
                         {
-                            Id = "4b01c9a8-8f77-4cb5-ad36-eb3dc8a01d4d",
+                            Id = "5d9b04c8-013b-4145-a678-cd8be8bce452",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fa672c78-75a8-4f2d-9eec-1763ac3668f3",
+                            ConcurrencyStamp = "302627f9-39e3-4afa-8dc8-4e3254335dd7",
                             Email = "admin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TEST.COM",
                             NormalizedUserName = "ADMIN@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIofIVQmfJ4RSWKKtgVoTANQ528wfxA/4WJKi+dhEyWkE7aw8PsdbDgHUIAZKL4o5Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ7s82X02dmDBrgMVyNE0Cej2+j63yhDrqO+Gfcvp6Fe0Rc1d0FMFp83PS9UIx++8Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fc8b95ea-a8f4-484f-9f71-f0ea03b72e03",
+                            SecurityStamp = "9d1fd8f6-9f3b-4815-9d51-025794926c59",
                             TwoFactorEnabled = false,
                             UserName = "admin@test.com"
                         });
@@ -214,12 +214,12 @@ namespace Scania.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -252,13 +252,13 @@ namespace Scania.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "2f89dbf1-933d-4af1-b1e1-348b4a020c8f",
-                            RoleId = "808c5745-54bf-4d23-8cab-769753aa52eb"
+                            UserId = "8e1c6008-4e94-4523-a2b6-8ce61fe751a1",
+                            RoleId = "a4761484-c023-47ef-b72f-e58e89794235"
                         },
                         new
                         {
-                            UserId = "4b01c9a8-8f77-4cb5-ad36-eb3dc8a01d4d",
-                            RoleId = "b8928ea4-335c-4e75-bfc7-5271677868ac"
+                            UserId = "5d9b04c8-013b-4145-a678-cd8be8bce452",
+                            RoleId = "85f00123-16a2-472e-a99a-3b0d64bb741f"
                         });
                 });
 
@@ -268,12 +268,12 @@ namespace Scania.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
